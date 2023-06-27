@@ -1,0 +1,51 @@
+// 임의 클래스를 하나 만들고 클래스안에 복사+붙여넣기
+// public class 클래스명 extends HttpServlet {
+//    이 부분에 아래 코드 복사+붙여넣기
+// }
+// DB와 연결이 잘 되었을 경우 이클립스 콘솔창에 "데이터베이스 연결 성공!" 출력됨
+
+private static final long serialVersionUID = 1L;
+    private DataSource ds; // connection pool에서 db 연결 정보 조회
+    	// exController를 클래스명에 맞게 변경
+	public exController() {
+        	super();
+    	}
+	
+    @Override
+    public void init() throws ServletException {
+        try {
+            Context ctx = new InitialContext(); // 톰캣에 저장되어 있는 context 정보 조회를 위한 설정
+            Context env = (Context) ctx.lookup("java:/comp/env"); // context에 저장되어 있는 환경(설정) 정보 조회용
+            ds = (DataSource) env.lookup("jdbc/oracle"); // connection pool 정보 조회
+        } catch (Exception ex) {
+            ex.printStackTrace(); // console 창에 로그(메시지) 출력
+        }
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection connection = null;
+        try {
+            connection = ds.getConnection();
+            System.out.println("데이터베이스 연결 성공!");
+
+            // 여기에서 필요한 추가 작업 수행 가능
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 연결 종료
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}

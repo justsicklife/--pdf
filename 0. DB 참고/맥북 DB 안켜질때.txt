@@ -1,0 +1,21 @@
+<맥북 처음에 껏다켰을때>
+1. sh start.sh
+2. docker container ls -a
+	-> STATUS 부분에 UP 됐는지 확인
+
+<UP이 아닐 경우>
+1. 맨왼쪽 숫자 복사
+2. docker stop 숫자
+3. docker rm 숫자
+4. sh setting.sh
+
+<만약에 또 안되면>
+1. docker exec -it docker_xe_21 /bin/bash
+2. sqlplus "/as sysdba"
+3. startup 입력
+4. Ctrl+D
+	-> 빠져나오기
+
+<빠져나와지면>
+1. sqlplus
+	-> 로그인 되면 성공
