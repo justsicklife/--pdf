@@ -1,0 +1,20 @@
+CREATE TABLE user_member (
+  user_idx NUMBER PRIMARY KEY,
+  user_email VARCHAR2(100) NOT NULL,
+  user_name VARCHAR2(50) NOT NULL,
+  user_password VARCHAR2(100) NOT NULL,
+  user_indate DATE DEFAULT SYSDATE,
+  user_remove_date DATE,
+  CONSTRAINT unique_email UNIQUE (user_email)
+);
+
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
+
+INSERT INTO user_member (user_idx, user_email, user_name, user_password)
+VALUES (user_seq.NEXTVAL, 'islandtim@naver.com', '김재섭', 'qwer1234');
+INSERT INTO user_member (user_idx, user_email, user_name, user_password)
+VALUES (user_seq.NEXTVAL, 'user1@example.com', '김철수', 'qwer1234');
+INSERT INTO user_member (user_idx, user_email, user_name, user_password)
+VALUES (user_seq.NEXTVAL, 'user2@example.com', '홍길동', 'qwer1234');
+
+commit;
